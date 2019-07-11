@@ -1,5 +1,7 @@
 package com.virtusa.codeTest;
 
+import java.util.Scanner;
+
 public class NumberConverter {
 
 	private static final String[] specialNames = {
@@ -77,6 +79,10 @@ public class NumberConverter {
 		if (number < 0) {
 			throw new NumberConverterException("Negative number not allowed");
 		}
+		
+		if (number > 999999999) {
+			throw new NumberConverterException("Number out of range");
+		}
 
 		String current = "";
 		int place = 0;
@@ -96,8 +102,11 @@ public class NumberConverter {
 	    
 	public static void main(String[] args) throws NumberConverterException {
 		NumberConverter obj = new NumberConverter();
-		System.out.println("*** " + obj.convert(123456789));
-		System.out.println("*** " + obj.convert(-55));
+		Scanner scan = new Scanner(System.in);
+		System.out.println("Enter a number");
+		Integer number = scan.nextInt();
+		System.out.println("You have entered " + obj.convert(number));
+		scan.close();
 	}
-	}
+}
 

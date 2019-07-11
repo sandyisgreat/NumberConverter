@@ -8,6 +8,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import com.virtusa.codeTest.NumberConverter;
+import com.virtusa.codeTest.NumberConverterException;
 
 public class NumberConverterTest {
 
@@ -35,8 +36,8 @@ public class NumberConverterTest {
 		return new NumberConverter();
 	}
 
-	@Test
-	public void testConvert() throws Exception {
+	@Test(expected = NumberConverterException.class)
+	public void testConvert() throws NumberConverterException {
 		NumberConverter testSubject;
 		int number = 0;
 		String result;
@@ -45,32 +46,30 @@ public class NumberConverterTest {
 		testSubject = createTestSubject();
 		number = 0;
 		result = testSubject.convert(number);
-		Assert.assertEquals("", result);
+		Assert.assertEquals("zero", result);
 
 		// test 2
 		testSubject = createTestSubject();
-		number = 1;
+		number = 121;
 		result = testSubject.convert(number);
-		Assert.assertEquals("", result);
+		Assert.assertEquals("one hundred twenty one", result);
 
-		// test 3
-		testSubject = createTestSubject();
-		number = 0;
-		result = testSubject.convert(number);
-		Assert.assertEquals("", result);
-
-		// test 4
+//		// test 3
 		testSubject = createTestSubject();
 		number = -1;
 		result = testSubject.convert(number);
-		Assert.assertEquals("", result);
+
+		// test 4
+		testSubject = createTestSubject();
+		number = 123456789;
+		result = testSubject.convert(number);
+		Assert.assertEquals("one hundred twenty three million four hundred fifty six thousand seven hundred eighty nine", result);
 
 		// test 5
 		testSubject = createTestSubject();
-		number = 1;
+		number = 1001;
 		result = testSubject.convert(number);
-		Assert.assertEquals("", result);
+		Assert.assertEquals("one thousand one", result);
 
-		Assert.fail();
 	}
 }
